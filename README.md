@@ -16,6 +16,8 @@ https://gist.github.com/zerobugs-oficial/53d692e5bec98d4b805dc5501dd5b157
 
   
 ## Modelo de banco de dados   
+![modelo banco](https://user-images.githubusercontent.com/56879793/103219668-1ae3e200-48fd-11eb-9b8a-9b23103100c0.png)
+
 
 
 
