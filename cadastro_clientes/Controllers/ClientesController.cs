@@ -48,6 +48,8 @@ namespace cadastro_clientes.Controllers
         public IActionResult Create()
         {
             ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id");
+            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero");
+
             return View();
         }
 
@@ -65,6 +67,7 @@ namespace cadastro_clientes.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexoId);
+            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero");
             return View(cliente);
         }
 
@@ -82,6 +85,7 @@ namespace cadastro_clientes.Controllers
                 return NotFound();
             }
             ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexoId);
+            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero");
             return View(cliente);
         }
 
@@ -118,6 +122,7 @@ namespace cadastro_clientes.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexoId);
+            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero");
             return View(cliente);
         }
 
