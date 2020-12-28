@@ -1,0 +1,7 @@
+.vscode/
+*.vs
+.vs/
+/obj/
+*/obj/
+*.sln
+
