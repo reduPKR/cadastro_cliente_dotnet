@@ -1,5 +1,5 @@
 CREATE TABLE `enderecos` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `cidade_id` INT NOT NULL,
   `cep` VARCHAR(9) NOT NULL,
   `bairro` VARCHAR(100) NOT NULL,
@@ -13,14 +13,14 @@ CREATE TABLE `enderecos` (
 ENGINE = InnoDB;
 
 CREATE TABLE `sexo` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `genero` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 CREATE TABLE `clientes` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `sexo_id` INT NOT NULL,
   `nome` VARCHAR(100) NOT NULL,
   `data_nascimento` DATE NOT NULL,

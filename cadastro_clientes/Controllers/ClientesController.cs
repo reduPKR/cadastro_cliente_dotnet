@@ -47,8 +47,8 @@ namespace cadastro_clientes.Controllers
         // GET: Clientes/Create
         public IActionResult Create()
         {
-            ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id");
-            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero");
+            //ViewData["sexo"] = new SelectList(_context.Sexo);
+            ViewData["sexo"] = new SelectList(_context.Sexo, "id", "genero");
 
             return View();
         }
@@ -58,7 +58,7 @@ namespace cadastro_clientes.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,nome,data_nascimento,sexoId")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("id,nome,data_nascimento, sexoId")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
@@ -66,8 +66,7 @@ namespace cadastro_clientes.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexoId);
-            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero");
+            ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexo.id);
             return View(cliente);
         }
 
@@ -84,8 +83,8 @@ namespace cadastro_clientes.Controllers
             {
                 return NotFound();
             }
-            ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexoId);
-            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero");
+            ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexo.id);
+            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero", cliente.sexo);
             return View(cliente);
         }
 
@@ -121,8 +120,8 @@ namespace cadastro_clientes.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexoId);
-            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero");
+            ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexo.id);
+            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero", cliente.sexo);
             return View(cliente);
         }
 
