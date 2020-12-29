@@ -58,17 +58,39 @@ namespace cadastro_clientes.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,nome,data_nascimento, sexoId")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("id,nome,data_nascimento, sexoId")] Cliente cliente, 
+                                                [Bind("id,cep,bairro,rua,numero,complemento")] Endereco endereco, 
+                                                [Bind("cidade")] String cidade)
         {
             if (ModelState.IsValid)
             {
+                Cidade cidade_obj = _context.Cidades.Where(item => item.nome == cidade).FirstOrDefault();
+               
+                endereco.cidadeId = cidade_obj.id;                
+
                 _context.Add(cliente);
+                _context.Add(endereco);
                 await _context.SaveChangesAsync();
+
+                vincular_endereco_cliente(cliente, endereco);
+
                 return RedirectToAction(nameof(Index));
             }
 
             ViewData["sexo"] = new SelectList(_context.Sexo, "id", "genero");
             return View(cliente);
+        }
+
+        private async void vincular_endereco_cliente(Cliente cliente, Endereco endereco)
+        {
+            EnderecoCliente enderecoCliente = new EnderecoCliente
+            {
+                clienteId = cliente.id,
+                enderecoId = endereco.id
+            };
+
+            _context.Add(enderecoCliente);
+            await _context.SaveChangesAsync();
         }
 
         // GET: Clientes/Edit/5

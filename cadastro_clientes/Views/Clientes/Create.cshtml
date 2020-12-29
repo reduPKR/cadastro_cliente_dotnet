@@ -15,12 +15,10 @@
             <div class="form-group">
                 <label asp-for="nome" class="control-label"></label>
                 <input asp-for="nome" class="form-control" />
-                <span asp-validation-for="nome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="data_nascimento" class="control-label"></label>
-                <input type="date" class="form-control" />
-                <span asp-validation-for="data_nascimento" class="text-danger"></span>
+                <input type="date" asp-for="data_nascimento" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="sexo" class="control-label"></label>

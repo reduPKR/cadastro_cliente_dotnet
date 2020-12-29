@@ -31,9 +31,10 @@ CREATE TABLE `clientes` (
 ENGINE = InnoDB;
 
 CREATE TABLE `endereco_cliente` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `endereco_id` INT NOT NULL,
   `cliente_id` INT NOT NULL,
-  PRIMARY KEY (`endereco_id`, `cliente_id`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_endereco_cliente_endereco` FOREIGN KEY (`endereco_id`) REFERENCES `enderecos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,

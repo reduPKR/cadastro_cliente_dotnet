@@ -14,10 +14,12 @@ namespace cadastro_cliente.Models
         public int id { get; set; }
 
         [ForeignKey("Endereco")]
+        [Column("endereco_id")]
         public int enderecoId { get; set; }
         public virtual Endereco endereco { get; set; }
 
         [ForeignKey("Cliente")]
+        [Column("cliente_id")]
         public int clienteId { get; set; }
         public virtual Cliente cliente { get; set; }
     }
