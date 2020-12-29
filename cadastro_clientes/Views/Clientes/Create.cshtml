@@ -29,6 +29,12 @@
             <div class="form-group">
                 <input type="submit" value="Confirmar" class="btn btn-primary" />
             </div>
+            <hr />
+            <div class="form-group">
+                <label class="control-label">CEP</label>
+                <input id="cep" name="cep" onkeypress="mascara(this, '#####-###')" maxlength="9" class="form-control" />
+                <span class="text-danger"></span>
+            </div>
         </form>
     </div>
 </div>
@@ -39,4 +45,16 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script language="JavaScript">
+          function mascara(entrada, mascara) {
+              var tamanho = entrada.value.length;
+              var saida = mascara.substring(1, 0);
+              var texto = mascara.substring(tamanho);
+
+              if (texto.substring(0, 1) != saida) {
+                  entrada.value += texto.substring(0, 1);
+              }
+        }
+    </script>
 }

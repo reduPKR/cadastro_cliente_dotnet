@@ -66,7 +66,8 @@ namespace cadastro_clientes.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexo.id);
+
+            ViewData["sexo"] = new SelectList(_context.Sexo, "id", "genero");
             return View(cliente);
         }
 

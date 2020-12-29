@@ -31,6 +31,7 @@
           "MySql.Data": "8.0.22",
           "MySql.Data.Entity": "6.10.9",
           "MySql.Data.EntityFrameworkCore": "8.0.22",
+          "jQuery.InputMask": "5.0.5",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -337,6 +338,7 @@
           "lib/netstandard2.0/Google.Protobuf.dll": {}
         }
       },
+      "jQuery.InputMask/5.0.5": {},
       "K4os.Compression.LZ4/1.1.11": {
         "dependencies": {
           "System.Memory": "4.5.3"
@@ -4266,6 +4268,13 @@
       "sha512": "sha512-dajCxjDCiPyZuqwZCkFJTwhn/0TJ5VesIs4fXvs56ez1VUi68JjhYMMsPjnJ9gcPqJwTMtXMU1WqUdXYiG1x4w==",
       "path": "google.protobuf/3.11.4",
       "hashPath": "google.protobuf.3.11.4.nupkg.sha512"
+    },
+    "jQuery.InputMask/5.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EdfCcNHEulHTV9wGoMgaW/Ch//pHVlSbZeQxTkkC91wNICVw7K4ePp3bcI4ZBU8d3sCxIx5aebNk4c3gTENJmw==",
+      "path": "jquery.inputmask/5.0.5",
+      "hashPath": "jquery.inputmask.5.0.5.nupkg.sha512"
     },
     "K4os.Compression.LZ4/1.1.11": {
       "type": "package",
