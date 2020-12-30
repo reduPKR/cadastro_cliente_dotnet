@@ -72,7 +72,6 @@ namespace cadastro_clientes.Controllers
             if (ModelState.IsValid)
             {
                 Cidade cidade_obj = _context.Cidades.Where(item => item.nome == cidade).FirstOrDefault();
-               
                 endereco.cidadeId = cidade_obj.id;                
 
                 _context.Add(cliente);
@@ -132,7 +131,10 @@ namespace cadastro_clientes.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,nome,data_nascimento,sexoId")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("id,nome,data_nascimento,sexoId")] Cliente cliente,
+                                                      [Bind("cep,bairro,rua,numero,complemento")] Endereco endereco,
+                                                      [Bind("endereco_id")] int endereco_id,
+                                                      [Bind("cidade")] String cidade)
         {
             if (id != cliente.id)
             {
@@ -144,6 +146,12 @@ namespace cadastro_clientes.Controllers
                 try
                 {
                     _context.Update(cliente);
+
+                    Cidade cidade_obj = _context.Cidades.Where(item => item.nome == cidade).FirstOrDefault();
+                    endereco.cidadeId = cidade_obj.id;
+                    endereco.id = endereco_id;
+                    _context.Update(endereco);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
