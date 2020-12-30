@@ -34,25 +34,25 @@
         <dd class="col-sm-10">
             @foreach (var item in Model.enderecos)
             {
-                <label>CEP: </label>
+                <strong>CEP: </strong>
                 @Html.DisplayFor(modelItem => item.endereco.cep)
                 <br />
-                <label>Estado: </label>
+                <strong>Estado: </strong>
                 @Html.DisplayFor(modelItem => item.endereco.cidade.estado.nome)
                 <br />
-                <label>Cidade: </label>
+                <strong>Cidade: </strong>
                 @Html.DisplayFor(modelItem => item.endereco.cidade.nome)
                 <br />
-                <label> Bairro: </label>
+                <strong> Bairro: </strong>
                 @Html.DisplayFor(modelItem => item.endereco.bairro)
                 <br />
-                <label> Rua: </label>
+                <strong> Rua: </strong>
                 @Html.DisplayFor(modelItem => item.endereco.rua)
                 <br />
-                <label> Número: </label>
+                <strong> Número: </strong>
                 @Html.DisplayFor(modelItem => item.endereco.numero)
                 <br />
-                <label> Complemento: </label>
+                <strong> Complemento: </strong>
                 @Html.DisplayFor(modelItem => item.endereco.complemento)
             }
         </dd>

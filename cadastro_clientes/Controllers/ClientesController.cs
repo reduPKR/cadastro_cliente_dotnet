@@ -182,10 +182,18 @@ namespace cadastro_clientes.Controllers
 
             var cliente = await _context.Clientes
                 .Include(c => c.sexo)
+                .Include(c => c.enderecos)
                 .FirstOrDefaultAsync(m => m.id == id);
             if (cliente == null)
             {
                 return NotFound();
+            }
+
+            foreach (var endereco in cliente.enderecos)
+            {
+                endereco.endereco = _context.Enderecos.Where(item => item.id == endereco.enderecoId).FirstOrDefault();
+                endereco.endereco.cidade = _context.Cidades.Where(item => item.id == endereco.endereco.cidadeId).FirstOrDefault();
+                endereco.endereco.cidade.estado = _context.Estados.Where(item => item.id == endereco.endereco.cidade.estadoId).FirstOrDefault();
             }
 
             return View(cliente);
