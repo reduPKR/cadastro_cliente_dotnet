@@ -205,6 +205,11 @@ namespace cadastro_clientes.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var cliente = await _context.Clientes.FindAsync(id);
+            var endereco_cliente = _context.EnderecoCliente.Where(item => item.clienteId == id).FirstOrDefault();
+            var endereco = _context.Enderecos.Where(item => item.id == endereco_cliente.enderecoId).FirstOrDefault();
+
+            _context.EnderecoCliente.Remove(endereco_cliente);
+            _context.Enderecos.Remove(endereco);
             _context.Clientes.Remove(cliente);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

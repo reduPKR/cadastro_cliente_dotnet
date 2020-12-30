@@ -29,10 +29,14 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.sexo.genero)
         </dd>
+        <dt class="col-sm-2">
+            Endereço
+        </dt>
         <dd class="col-sm-10">
             @foreach (var item in Model.enderecos)
             {
                 <strong>CEP: </strong>
+
                 @Html.DisplayFor(modelItem => item.endereco.cep)
                 <br />
                 <strong>Estado: </strong>
