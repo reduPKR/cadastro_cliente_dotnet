@@ -12,22 +12,53 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="id" />
             <div class="form-group">
                 <label asp-for="nome" class="control-label"></label>
                 <input asp-for="nome" class="form-control" />
-                <span asp-validation-for="nome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="data_nascimento" class="control-label"></label>
-                <input asp-for="data_nascimento" class="form-control" />
-                <span asp-validation-for="data_nascimento" class="text-danger"></span>
+                <input type="date" asp-for="data_nascimento" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="sexo" class="control-label"></label>
-                <select asp-for="sexo" class="form-control" asp-items="ViewBag.sexo"></select>
-                <span asp-validation-for="sexo" class="text-danger"></span>
+                <select asp-for="sexoId" class="form-control" asp-items="ViewBag.sexo"></select>
             </div>
+            <hr />
+
+            @foreach (var item in Model.enderecos)
+            {
+                <div class="form-group">
+                    <label class="control-label">CEP</label>
+                    <input id="cep" name="cep" value="@item.endereco.cep" onkeypress="mascara(this, '#####-###')" maxlength="9" class="form-control" onblur="procurar(this.value);" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Bairro</label>
+                    <input id="bairro" name="bairro" value="@item.endereco.bairro" class="form-control" readonly/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Rua</label>
+                    <input id="rua" name="rua" value="@item.endereco.rua" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Numero</label>
+                    <input type="number" id="numero" name="numero" name="rua" value="@item.endereco.numero" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Complemento</label>
+                    <input id="complemento" name="complemento" value="@item.endereco.complemento" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Cidade</label>
+                    <input id="cidade" name="cidade" value="@item.endereco.cidade.nome" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Estado</label>
+                    <input id="uf" name="uf" value="@item.endereco.cidade.estado.nome" class="form-control" readonly/>
+                </div>
+                <hr />
+            }
+
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
@@ -36,9 +67,66 @@
 </div>
 
 <div>
-    <a asp-action="Index">Retornar</a>
+    <a asp-action="Index">Voltar</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script language="JavaScript">
+        function mascara(entrada, mascara) {
+            var tamanho = entrada.value.length;
+            var saida = mascara.substring(1, 0);
+            var texto = mascara.substring(tamanho);
+
+            if (texto.substring(0, 1) != saida) {
+                entrada.value += texto.substring(0, 1);
+            }
+        }
+
+        function procurar(valor) {
+            var cep = valor.replace(/\D/g, '');
+
+            if (cep != "") {
+
+                var validacep = /^[0-9]{8}$/;
+                if (validacep.test(cep)) {
+
+                    document.getElementById('rua').value = "...";
+                    document.getElementById('bairro').value = "...";
+                    document.getElementById('cidade').value = "...";
+                    document.getElementById('uf').value = "...";
+
+                    var script = document.createElement('script');
+                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=resposta';
+                    document.body.appendChild(script);
+
+                }
+            }
+            else {
+                limpa_formulário_cep();
+            }
+        };
+
+        function resposta(conteudo) {
+            if (!("erro" in conteudo)) {
+                document.getElementById('rua').value = (conteudo.logradouro);
+                document.getElementById('bairro').value = (conteudo.bairro);
+                document.getElementById('cidade').value = (conteudo.localidade);
+                document.getElementById('uf').value = (conteudo.uf);
+            }
+            else {
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+
+        function limpa_formulário_cep() {
+            document.getElementById('rua').value = ("");
+            document.getElementById('bairro').value = ("");
+            document.getElementById('cidade').value = ("");
+            document.getElementById('uf').value = ("");
+        }
+
+    </script>
 }

@@ -55,7 +55,6 @@ namespace cadastro_clientes.Controllers
         // GET: Clientes/Create
         public IActionResult Create()
         {
-            //ViewData["sexo"] = new SelectList(_context.Sexo);
             ViewData["sexo"] = new SelectList(_context.Sexo, "id", "genero");
 
             return View();
@@ -114,8 +113,17 @@ namespace cadastro_clientes.Controllers
             {
                 return NotFound();
             }
-            ViewData["sexoId"] = new SelectList(_context.Sexo, "id", "id", cliente.sexo.id);
-            ViewData["sexo"] = new SelectList(_context.Sexo, "genero", "genero", cliente.sexo);
+
+            ViewData["sexo"] = new SelectList(_context.Sexo, "id", "genero");
+
+            EnderecoCliente endereco = _context.EnderecoCliente.Where(item => item.clienteId == cliente.id).FirstOrDefault();
+            endereco.endereco = _context.Enderecos.Where(item => item.id == endereco.enderecoId).FirstOrDefault();
+            endereco.endereco.cidade = _context.Cidades.Where(item => item.id == endereco.endereco.cidadeId).FirstOrDefault();
+            endereco.endereco.cidade.estado = _context.Estados.Where(item => item.id == endereco.endereco.cidade.estadoId).FirstOrDefault();
+
+            cliente.enderecos = new List<EnderecoCliente>();
+            cliente.enderecos.Add(endereco);
+
             return View(cliente);
         }
 
